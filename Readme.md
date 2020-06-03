@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Арина Вернидуб](https://up.htmlacademy.ru/javascript/20/user/1509573).
-* Наставник: `Неизвестно`.
+* Наставник: `Алексей Рысев`.
 
 ---
 
