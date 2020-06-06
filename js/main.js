@@ -25,23 +25,23 @@ var generateAdsMap = function() {
 
     adsMap.push({
       'author': {
-        'avatar': 'img/avatars/user' + pinNumber  + '.png'
+        'avatar': 'img/avatars/user' + pinNumber + '.png'
       },
       'offer': {
         'title': 'title' + pinNumber,
         'address': '600, 350',
         'price': 500,
-        'type': adsTypes[getRandomInt(0, adsTypes.length-1)],
+        'type': adsTypes[getRandomInt(0, adsTypes.length - 1)],
         'rooms':  getRandomInt(1, 10),
         'guests': getRandomInt(1, 10),
-        'checkin': checkinTimes[getRandomInt(0, checkinTimes.length-1)],
-        'checkout': checkoutTimes[getRandomInt(0, checkoutTimes.length-1)],
+        'checkin': checkinTimes[getRandomInt(0, checkinTimes.length - 1)],
+        'checkout': checkoutTimes[getRandomInt(0, checkoutTimes.length - 1)],
         'features':  function() {
           var offerCount = getRandomInt(1, adsFeatures.length);
           var offerFeatures = [];
 
           for (var j = 0; j < offerCount; j ++) {
-            offerFeatures.push(adsFeatures[getRandomInt(0, adsFeatures.length - 1)])
+            offerFeatures.push(adsFeatures[getRandomInt(0, adsFeatures.length - 1)]);
           }
 
           return offerFeatures;
@@ -71,7 +71,7 @@ var createPins = function(pins) {
     var elem = template.cloneNode(true);
     var img = elem.children[0];
 
-    elem.style = 'left: ' +  (pins[i].location.x + (img.width / 2)) + 'px; top: ' + (pins[i].location.y + img.height) + 'px;'
+    elem.style = 'left: ' +  (pins[i].location.x + (img.width / 2)) + 'px; top: ' + (pins[i].location.y + img.height) + 'px;';
     img.src = pins[i].author.avatar;
     img.alt = pins[i].offer.description;
 
