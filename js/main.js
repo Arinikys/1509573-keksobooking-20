@@ -12,6 +12,7 @@ var getRandomInt = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
+
 var generateAdsMap = function() {
   var adsMap = [];
   var adsTypes = ['palace', 'flat' , 'house', 'bungalo'];
@@ -35,7 +36,16 @@ var generateAdsMap = function() {
         'guests': getRandomInt(1, 10),
         'checkin': checkinTimes[getRandomInt(0, checkinTimes.length-1)],
         'checkout': checkoutTimes[getRandomInt(0, checkoutTimes.length-1)],
-        'features':  adsFeatures[getRandomInt(0, adsFeatures.length-1)],
+        'features':  function() {
+          var offerCount = getRandomInt(1, adsFeatures.length);
+          var offerFeatures = [];
+
+          for (var j = 0; j < offerCount; j ++) {
+            offerFeatures.push(adsFeatures[getRandomInt(0, adsFeatures.length - 1)])
+          }
+
+          return offerFeatures;
+        } (),
         'description': 'description' + pinNumber,
         'photos': [
           'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
