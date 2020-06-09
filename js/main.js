@@ -74,10 +74,88 @@ var createPins = function (pins) {
     img.src = pins[i].author.avatar;
     img.alt = pins[i].offer.description;
 
-    fragment.appendChild(elem);
+    fragment.append(elem);
   }
 
   return fragment;
 };
 
-map.append(createPins(generateAdsMap()));
+var adsMap = generateAdsMap();
+map.append(createPins(adsMap));
+
+var createTextElem = function (cardElem, selector, text) {
+  if (text) {
+    cardElem.querySelector(selector).textContent = text;
+  } else {
+    cardElem.querySelector(selector).display = 'none';
+  }
+
+  return cardElem;
+};
+
+var createImgElem = function (cardElem, selector, src) {
+  if (src) {
+    cardElem.querySelector(selector).src = src;
+  } else {
+    cardElem.querySelector(selector).display = 'none';
+  }
+
+  return cardElem;
+};
+
+var firstAds = adsMap[0];
+var offerType = {
+  flat: 'Квартира',
+  bungalo: 'Бунгало',
+  house: 'Дом',
+  palace: 'Дворец'
+};
+var offer = firstAds.offer;
+var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
+var cardFragment = document.createDocumentFragment();
+var cardElem = cardTemplate.cloneNode(true);
+
+cardFragment.append(createTextElem(cardElem, '.popup__title', offer.title));
+cardFragment.append(createTextElem(cardElem, '.popup__text--address', offer.address));
+cardFragment.append(createTextElem(cardElem, '.popup__text--price', offer.price + '₽/ночь'));
+cardFragment.append(createTextElem(cardElem, '.popup__type', offerType[offer.type]));
+cardFragment.append(createTextElem(cardElem, '.popup__description', offer.description));
+cardFragment.append(createImgElem(cardElem, '.popup__avatar', firstAds.author.avatar));
+
+if (offer.rooms && offer.guests) {
+  cardFragment.append(createTextElem(cardElem, '.popup__text--capacity', offer.rooms + ' комнаты для ' + offer.guests + ' гостей'));
+} else {
+  cardFragment.append(createTextElem(cardElem, '.popup__text--capacity'));
+}
+
+if (offer.checkin && offer.checkout) {
+  cardFragment.append(createTextElem(cardElem, '.popup__text--time', 'Заезд после ' + offer.checkin + ', выезд до ' + offer.checkout));
+} else {
+  cardFragment.append(createTextElem(cardElem, '.popup__text--time'));
+}
+
+var featureList = cardElem.querySelectorAll('.popup__feature');
+for (var j = 0; j < offer.features.length; j++) {
+  var feature = offer.features[j];
+  for (var i = 0; i < featureList.length; i++) {
+    var item = featureList[i];
+    if (item.classList.contains('popup__feature--' + feature)) {
+      break;
+    } else {
+      item.style.display = 'none';
+    }
+  }
+}
+
+//TODO В блок .popup__photos выведите все фотографии из списка offer.photos.
+//TODO Каждая из строк массива photos должна записываться как src соответствующего изображения.
+var photoList = cardElem.querySelector('.popup__photos');
+for (var k = 0; k < offer.photos.length; k++) {
+  var photo = photoList.querySelector('.popup__photo');
+  photo.src = offer.photos[k];
+  photoList.appendChild(photo); // вот тут как бы должны добавляться фотки, чтобы в итоге получилось n картинок, но нет, остается одна.
+                                // И при этом, каждый раз src одинаковый, последний эллемент массива offer.photos
+  console.log(photoList);
+}
+
+map.append(cardFragment, document.querySelector('.map__filters-container'));
