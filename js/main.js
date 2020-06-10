@@ -147,15 +147,17 @@ for (var j = 0; j < offer.features.length; j++) {
   }
 }
 
-//TODO В блок .popup__photos выведите все фотографии из списка offer.photos.
-//TODO Каждая из строк массива photos должна записываться как src соответствующего изображения.
 var photoList = cardElem.querySelector('.popup__photos');
+photoList.innerHTML = '';
 for (var k = 0; k < offer.photos.length; k++) {
-  var photo = photoList.querySelector('.popup__photo');
+  var photo = document.createElement('img');
+
+  photo.classList.add('popup__photo');
   photo.src = offer.photos[k];
-  photoList.appendChild(photo); // вот тут как бы должны добавляться фотки, чтобы в итоге получилось n картинок, но нет, остается одна.
-                                // И при этом, каждый раз src одинаковый, последний эллемент массива offer.photos
-  console.log(photoList);
+  photo.width = '45';
+  photo.height = '40';
+
+  photoList.append(photo);
 }
 
 map.append(cardFragment, document.querySelector('.map__filters-container'));
