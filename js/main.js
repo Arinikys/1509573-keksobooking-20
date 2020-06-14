@@ -216,29 +216,75 @@ var roomNumberSelect = form.querySelector('#room_number');
 var capacitySelect = form.querySelector('#capacity');
 
 roomNumberSelect.addEventListener('change', function () {
-  var rooms = Number(roomNumberSelect.value);
+  var roomsCount = Number(roomNumberSelect.value);
   var capacityOption = capacitySelect.children;
-  var item;
-  var value;
-  if (rooms === 100) {
+  var option;
+  var optionValue;
+  if (roomsCount === 100) {
     for (var i = 0; i < capacityOption.length; i++) {
-      item = capacityOption[i];
-      value = Number(item.value);
-      if (value === 0) {
-        item.disabled = false;
+      option = capacityOption[i];
+      optionValue = Number(option.value);
+      if (optionValue === 0) {
+        option.disabled = false;
       } else {
-        item.disabled = true;
+        option.disabled = true;
       }
     }
     return;
   }
   for (var j = 0; j < capacityOption.length; j++) {
-    item = capacityOption[j];
-    value = Number(item.value);
-    if (value > rooms || value === 0) {
-      item.disabled = true;
+    option = capacityOption[j];
+    optionValue = Number(option.value);
+    if (optionValue > roomsCount || optionValue === 0) {
+      option.disabled = true;
     } else {
-      item.disabled = false;
+      option.disabled = false;
     }
   }
+});
+
+// 3.5. Поля «Время заезда» и «Время выезда» синхронизированы: при изменении значения одного поля,
+//   во втором выделяется соответствующее ему. Например, если время заезда указано «после 14»,
+// то время выезда будет равно «до 14» и наоборот.
+
+
+var offerType = form.querySelector('#type');
+var offerPrice = form.querySelector('#price');
+var otterTypePriceCorrelation = {
+  'bungalo': 0,
+  'flat': 1000,
+  'house': 5000,
+  'palace': 10000
+};
+
+offerType.addEventListener('change', function () {
+  var minPrice = otterTypePriceCorrelation[offerType.value];
+  offerPrice.placeholder = minPrice;
+  offerPrice.min = minPrice;
+  offerPrice.value = minPrice;
+});
+
+
+var timeinSelect = form.querySelector('#timein');
+var timeinOption = timeinSelect.querySelectorAll('option');
+var timeoutSelect = form.querySelector('#timeout');
+var timeoutOption = timeoutSelect.querySelectorAll('option');
+
+var setInOutTime = function (timeValue, optionsList) {
+  for (var i = 0; i < optionsList.length; i++) {
+    var currentOption = optionsList[i];
+    if (currentOption.value === timeValue) {
+      currentOption.selected = true;
+    } else {
+      currentOption.selected = false;
+    }
+  }
+};
+
+timeinSelect.addEventListener('change', function () {
+  setInOutTime(timeinSelect.value, timeoutOption);
+});
+
+timeoutSelect.addEventListener('change', function () {
+  setInOutTime(timeoutSelect.value, timeinOption);
 });
