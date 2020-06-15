@@ -63,6 +63,7 @@ var generateAdsMap = function () {
   return adsMap;
 };
 
+// Create map pins
 var createPins = function (pins) {
   var template = document.querySelector('#pin').content.querySelector('button');
   var fragment = document.createDocumentFragment();
@@ -72,6 +73,7 @@ var createPins = function (pins) {
     var img = elem.children[0];
 
     elem.style = 'left: ' + (pins[i].location.x + (img.width / 2)) + 'px; top: ' + (pins[i].location.y + img.height) + 'px;';
+    elem.dataset.cardId = i;
     img.src = pins[i].author.avatar;
     img.alt = pins[i].offer.description;
 
@@ -81,10 +83,10 @@ var createPins = function (pins) {
   return fragment;
 };
 
+// Create map card
 var adsMap = generateAdsMap();
 map.append(createPins(adsMap));
 
-/*
 var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 var cardFragment = document.createDocumentFragment();
 var cardElem = cardTemplate.cloneNode(true);
@@ -165,27 +167,60 @@ var addOfferCard = function (firstAds) {
   var photoClassName = photo.classList;
   photoList.innerHTML = '';
   appendPhoto(offer.photos, photoList, photoClassName, photoWidth, photoHeight);
-
+  cardElem.classList.remove('hidden');
   cardFragment.append(cardElem);
   map.append(cardFragment, document.querySelector('.map__filters-container'));
 };
 
-addOfferCard(adsMap[0], map);
-*/
+// Open map card
+var mapPins = document.querySelectorAll('.map__pin');
 
+var addMapPinsClickHandler = function (mapPin, adsMapItem) {
+  mapPin.addEventListener('click', function () {
+    addOfferCard(adsMapItem, map);
+    map.addEventListener('click', closeMapCardByClick);
+    document.addEventListener('keydown', closeMapCardByKeydown);
+  });
+};
+
+for (var i = 0; i < mapPins.length; i++) {
+  var mapPin = mapPins[i];
+  if (!mapPin.classList.contains('map__pin--main')) {
+    addMapPinsClickHandler(mapPin, adsMap[mapPin.dataset.cardId]);
+  }
+}
+
+var closeMapCardByClick = function (evt) {
+  if (
+    evt.target
+    && evt.target.matches('.popup__close')
+  ) {
+    map.querySelector('.map__card').classList.add('hidden');
+  }
+};
+
+var closeMapCardByKeydown = function (evt) {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    map.querySelector('.map__card').classList.add('hidden');
+    document.removeEventListener('keydown', closeMapCardByKeydown);
+  }
+};
+
+// Form validation
 var form = document.querySelector('.ad-form');
 var fieldsets = form.querySelectorAll('fieldset');
 
 var lockFieldsets = function (fieldsetsList) {
-  for (var i = 0; i < fieldsetsList; i++) {
-    fieldsetsList[i].disabled = true;
+  for (var lockFieldsetIndex = 0; i < fieldsetsList; i++) {
+    fieldsetsList[lockFieldsetIndex].disabled = true;
   }
 };
 lockFieldsets(fieldsets);
 
 var unlockFieldsets = function (fieldsetsList) {
-  for (var i = 0; i < fieldsetsList; i++) {
-    fieldsetsList[i].disabled = false;
+  for (var unlockFieldsetIndex = 0; i < fieldsetsList; i++) {
+    fieldsetsList[unlockFieldsetIndex].disabled = false;
   }
 };
 
@@ -221,8 +256,8 @@ roomNumberSelect.addEventListener('change', function () {
   var option;
   var optionValue;
   if (roomsCount === 100) {
-    for (var i = 0; i < capacityOption.length; i++) {
-      option = capacityOption[i];
+    for (var optionIndex = 0; optionIndex < capacityOption.length; optionIndex++) {
+      option = capacityOption[optionIndex];
       optionValue = Number(option.value);
       if (optionValue === 0) {
         option.disabled = false;
@@ -242,11 +277,6 @@ roomNumberSelect.addEventListener('change', function () {
     }
   }
 });
-
-// 3.5. Поля «Время заезда» и «Время выезда» синхронизированы: при изменении значения одного поля,
-//   во втором выделяется соответствующее ему. Например, если время заезда указано «после 14»,
-// то время выезда будет равно «до 14» и наоборот.
-
 
 var offerType = form.querySelector('#type');
 var offerPrice = form.querySelector('#price');
@@ -271,8 +301,8 @@ var timeoutSelect = form.querySelector('#timeout');
 var timeoutOption = timeoutSelect.querySelectorAll('option');
 
 var setInOutTime = function (timeValue, optionsList) {
-  for (var i = 0; i < optionsList.length; i++) {
-    var currentOption = optionsList[i];
+  for (var optionIndex = 0; optionIndex < optionsList.length; optionIndex++) {
+    var currentOption = optionsList[optionIndex];
     if (currentOption.value === timeValue) {
       currentOption.selected = true;
     } else {
