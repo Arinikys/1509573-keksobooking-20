@@ -212,14 +212,14 @@ var form = document.querySelector('.ad-form');
 var fieldsets = form.querySelectorAll('fieldset');
 
 var lockFieldsets = function (fieldsetsList) {
-  for (var lockFieldsetIndex = 0; i < fieldsetsList; i++) {
+  for (var lockFieldsetIndex = 0; lockFieldsetIndex < fieldsetsList; lockFieldsetIndex++) {
     fieldsetsList[lockFieldsetIndex].disabled = true;
   }
 };
 lockFieldsets(fieldsets);
 
 var unlockFieldsets = function (fieldsetsList) {
-  for (var unlockFieldsetIndex = 0; i < fieldsetsList; i++) {
+  for (var unlockFieldsetIndex = 0; unlockFieldsetIndex < fieldsetsList; unlockFieldsetIndex++) {
     fieldsetsList[unlockFieldsetIndex].disabled = false;
   }
 };
