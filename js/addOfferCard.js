@@ -80,7 +80,7 @@
 
     var photoList = cardElem.querySelector('.popup__photos');
     photoList.innerHTML = '';
-    if(offer.photos.length > 0) {
+    if (offer.photos.length > 0) {
       appendPhoto(offer.photos, photoList, PHOTO_CLASS_NAME, PHOTO_WIDTH, PHOTO_HEIGHT);
     }
     cardElem.classList.remove('hidden');
