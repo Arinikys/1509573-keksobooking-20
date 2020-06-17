@@ -1,6 +1,6 @@
 'use strict';
 (function () {
-  window.addPinClickHandler = function(map) {
+  window.addPinClickHandler = function (map, adsMap) {
     var mapPins = document.querySelectorAll('.map__pin');
 
     var addMapPinsClickHandler = function (mapPin, adsMapItem) {
@@ -34,5 +34,5 @@
         document.removeEventListener('keydown', closeMapCardByEscape);
       }
     };
-  }
+  };
 })();
