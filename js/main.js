@@ -179,7 +179,7 @@ var addMapPinsClickHandler = function (mapPin, adsMapItem) {
   mapPin.addEventListener('click', function () {
     addOfferCard(adsMapItem, map);
     map.addEventListener('click', closeMapCardByClick);
-    document.addEventListener('keydown', closeMapCardByKeydown);
+    document.addEventListener('keydown', closeMapCardByEscape);
   });
 };
 
@@ -199,11 +199,11 @@ var closeMapCardByClick = function (evt) {
   }
 };
 
-var closeMapCardByKeydown = function (evt) {
+var closeMapCardByEscape = function (evt) {
   if (evt.key === 'Escape') {
     evt.preventDefault();
     map.querySelector('.map__card').classList.add('hidden');
-    document.removeEventListener('keydown', closeMapCardByKeydown);
+    document.removeEventListener('keydown', closeMapCardByEscape);
   }
 };
 
