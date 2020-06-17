@@ -1,30 +1,16 @@
 'use strict';
 (function () {
-  var MAIN_PIN_WIDTH = 65;
-  var MAIN_PIN_HEIGHT = 84;
-
   var form = document.querySelector('.ad-form');
   var fieldsets = form.querySelectorAll('fieldset');
 
-  var lockFieldsets = function (fieldsetsList) {
-    for (var lockFieldsetIndex = 0; lockFieldsetIndex < fieldsetsList; lockFieldsetIndex++) {
-      fieldsetsList[lockFieldsetIndex].disabled = true;
-    }
-  };
-  lockFieldsets(fieldsets);
-
-  var unlockFieldsets = function (fieldsetsList) {
-    for (var unlockFieldsetIndex = 0; unlockFieldsets < fieldsetsList; unlockFieldsets++) {
-      fieldsetsList[unlockFieldsetIndex].disabled = false;
-    }
-  };
+  window.lockFieldsets(fieldsets);
 
   var unlockPage = function (evt) {
     if (evt.button === 0 || evt.key === 'Enter') {
       window.map.classList.remove('map--faded');
       form.classList.remove('ad-form--disabled');
-      unlockFieldsets(fieldsets);
-      setAddress();
+      window.unlockFieldsets(fieldsets);
+      window.setAddress(form.querySelector('#address'), mainPin);
     }
 
     mainPin.removeEventListener('mousedown', unlockPage);
@@ -35,12 +21,7 @@
   mainPin.addEventListener('mousedown', unlockPage);
 
   mainPin.addEventListener('keydown', unlockPage);
-
-  var setAddress = function () {
-    var addressInput = form.querySelector('#address');
-    addressInput.value = Math.round(MAIN_PIN_WIDTH / 2 + mainPin.offsetLeft) + ' ' + (MAIN_PIN_HEIGHT + mainPin.offsetTop);
-  };
-  setAddress();
+  window.setAddress(form.querySelector('#address'), mainPin);
 
   var roomNumberSelect = form.querySelector('#room_number');
   var capacitySelect = form.querySelector('#capacity');
