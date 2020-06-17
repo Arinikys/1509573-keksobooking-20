@@ -1,6 +1,6 @@
 'use strict';
 (function () {
-  window.validateForm = function(form) {
+  window.validateForm = function (form) {
     var roomNumberSelect = form.querySelector('#room_number');
     var capacitySelect = form.querySelector('#capacity');
 
@@ -63,5 +63,5 @@
     timeoutSelect.addEventListener('change', function () {
       setInOutTime(timeoutSelect.value, timeinOption);
     });
-  }
+  };
 })();
