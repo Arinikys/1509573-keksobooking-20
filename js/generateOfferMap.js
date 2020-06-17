@@ -8,7 +8,7 @@
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };
 
-  window.generateAdsMap = function () {
+  window.generateOfferMap = function () {
     var adsMap = [];
     var adsTypes = ['palace', 'flat', 'house', 'bungalo'];
     var adsFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
