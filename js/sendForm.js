@@ -9,6 +9,7 @@
         evt.preventDefault();
         successMessage.classList.add('hidden');
         document.removeEventListener('keydown', hideSuccessMessageByEsc);
+        document.removeEventListener('click', hideSuccessMessageByClick);
       }
     };
 
@@ -16,6 +17,7 @@
       evt.preventDefault();
       successMessage.classList.add('hidden');
       document.removeEventListener('click', hideSuccessMessageByClick);
+      document.removeEventListener('keydown', hideSuccessMessageByEsc);
     };
 
     var onSuccess = function () {
