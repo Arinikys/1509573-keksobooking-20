@@ -10,8 +10,7 @@
 
     var unlockPage = function (evt) {
       if (evt.button === 0 || evt.key === 'Enter') {
-        map.classList.remove('map--faded');
-        form.classList.remove('ad-form--disabled');
+        window.unlockPage(map, form);
         window.unlockFieldsets(fieldsets);
         window.setAddress(window.MAIN_PIN_WIDTH, window.MAIN_PIN_HEIGHT);
       }
