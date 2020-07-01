@@ -23,14 +23,14 @@
         evt.target
         && evt.target.matches('.popup__close')
       ) {
-        map.querySelector('.map__card').classList.add('hidden');
+        window.hideOfferCard();
       }
     };
 
     var closeMapCardByEscape = function (evt) {
       if (evt.key === 'Escape') {
         evt.preventDefault();
-        map.querySelector('.map__card').classList.add('hidden');
+        window.hideOfferCard();
         document.removeEventListener('keydown', closeMapCardByEscape);
       }
     };
