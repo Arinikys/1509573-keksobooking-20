@@ -1,12 +1,13 @@
 'use strict';
 
 (function () {
-  window.filterHousingType = function (type, advs) {
+  window.filterHousingType = function (type, offers) {
+
     if (type === 'any') {
-      return advs;
+      return offers;
     }
-    return advs.filter(function () {
-      return advs.offer.type === type;
+    return offers.filter(function (offer) {
+      return offer.offer.type === type;
     });
   };
 })();

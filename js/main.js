@@ -12,6 +12,7 @@ window.request('https://javascript.pages.academy/keksobooking/data', function (d
   pinWrap.append(window.createPins(offers));
   map.append(pinWrap);
   window.addPinClickHandler(map, offers);
+  window.fillterOffers(map, offers, pinWrap);
 });
 window.lockFieldsets(fieldsets);
 window.setAddress(window.MAIN_PIN_WIDTH, window.MAIN_PIN_HEIGHT);
@@ -25,18 +26,3 @@ resetBtn.addEventListener('click', function () {
 });
 
 window.sendForm('https://javascript.pages.academy/keksobooking', form, map, fieldsets);
-
-var housingType = document.querySelector('#housing-type');
-
-housingType.addEventListener('change', function () {
-  pinWrap.innerHTML = '';
-  var filterOffers = window.filterHousingType(housingType.value, offers);
-  pinWrap.append(window.createPins(filterOffers));
-  window.addPinClickHandler(map, filterOffers);
-});
-
-var mapFiltersForm = document.querySelector('.map__filters');
-
-mapFiltersForm.addEventListener('change', function () {
-  window.hideOfferCard();
-});
