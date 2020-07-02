@@ -5,7 +5,7 @@
     var template = document.querySelector('#pin').content.querySelector('button');
     var fragment = document.createDocumentFragment();
 
-    for (var i = 0; i < pins.length; i++) {
+    for (var i = 0; i < pins.length && i < 5; i++) {
       var elem = template.cloneNode(true);
       var img = elem.children[0];
 
