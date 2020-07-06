@@ -16,14 +16,21 @@
     if (option === 'price') {
       return offers.filter(function (offer) {
         var optionValInt = parseInt(offer.offer[option], 10);
+        var isOfferPass = false;
         switch (value) {
           case 'low' :
-            return optionValInt < 10000;
+            isOfferPass = optionValInt < 10000;
+            break;
           case 'high' :
-            return optionValInt > 50000;
+            isOfferPass = optionValInt > 50000;
+            break;
           case 'middle' :
-            return optionValInt > 10000 && optionValInt < 50000;
+            isOfferPass = optionValInt > 10000 && optionValInt < 50000;
+            break;
+          default:
+            return false;
         }
+        return isOfferPass;
       });
     }
 
