@@ -14,6 +14,7 @@ window.request('https://javascript.pages.academy/keksobooking/data', function (d
   window.addPinClickHandler(map, offers);
   window.filterFormEventsListener(map, offers, pinWrap);
 });
+
 window.lockFieldsets(fieldsets);
 window.setAddress(window.MAIN_PIN_WIDTH, window.MAIN_PIN_HEIGHT);
 window.validateForm(form);
@@ -24,5 +25,8 @@ var resetBtn = document.querySelector('.ad-form__reset');
 resetBtn.addEventListener('click', function () {
   window.clearForm(form);
 });
+
+window.showPrevImage(document.querySelector('.ad-form-header__input'), document.querySelector('.ad-form-header__preview img'));
+window.showPrevImage(document.querySelector('.ad-form__input'), document.querySelector('.ad-form__photo img'));
 
 window.sendForm('https://javascript.pages.academy/keksobooking', form, map, fieldsets);
