@@ -10,14 +10,14 @@
   var cardElem = cardTemplate.cloneNode(true);
 
   var addFeatures = function (features, featureList) {
+    for (var featureIndex = 0; featureIndex < featureList.length; featureIndex++) {
+      featureList[featureIndex].classList.add('hidden');
+    }
     for (var j = 0; j < features.length; j++) {
-      var feature = features[j];
       for (var i = 0; i < featureList.length; i++) {
         var item = featureList[i];
-        if (item.classList.contains('popup__feature--' + feature)) {
-          break;
-        } else {
-          item.style.display = 'none';
+        if (item.classList.contains('popup__feature--' + features[j])) {
+          item.classList.remove('hidden');
         }
       }
     }
