@@ -5,8 +5,8 @@
     if (value === 'any') {
       return offers;
     }
-    return offers.filter(function (offer) {
-      var optionValInt = parseInt(offer.offer['price'], 10);
+    return offers.filter(function (adv) {
+      var optionValInt = parseInt(adv.offer['price'], 10);
       var isOfferPass = false;
       switch (value) {
         case 'low' :
