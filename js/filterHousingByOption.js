@@ -6,8 +6,8 @@
       return offers;
     }
 
-    return offers.filter(function (offer) {
-      return (offer.offer[option]).toString() === value;
+    return offers.filter(function (adv) {
+      return (adv.offer[option]).toString() === value;
     });
   };
 })();

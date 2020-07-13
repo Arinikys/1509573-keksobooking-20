@@ -1,6 +1,6 @@
 'use strict';
 (function () {
-  window.validateForm = function (form) {
+  window.formValidation = function (form) {
     var roomNumberSelect = form.querySelector('#room_number');
     var capacitySelect = form.querySelector('#capacity');
 

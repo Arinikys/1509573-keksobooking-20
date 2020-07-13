@@ -12,12 +12,12 @@ window.request('https://javascript.pages.academy/keksobooking/data', function (d
   pinWrap.append(window.createPins(offers));
   map.append(pinWrap);
   window.addPinClickHandler(map, offers);
-  window.filterFormEventsListener(map, offers, pinWrap);
+  window.addFilterFormEventsListener(map, offers, pinWrap);
 });
 
 window.lockFieldsets(fieldsets);
 window.setAddress(window.MAIN_PIN_WIDTH, window.MAIN_PIN_HEIGHT);
-window.validateForm(form);
+window.formValidation(form);
 
 window.setMainPinEventsListener(map, form, fieldsets);
 
@@ -29,4 +29,4 @@ resetBtn.addEventListener('click', function () {
 window.showPrevImage(document.querySelector('.ad-form-header__input'), document.querySelector('.ad-form-header__preview img'));
 window.showPrevImage(document.querySelector('.ad-form__input'), document.querySelector('.ad-form__photo img'));
 
-window.sendForm('https://javascript.pages.academy/keksobooking', form, map, fieldsets);
+window.initFormSending('https://javascript.pages.academy/keksobooking', form, map, fieldsets);

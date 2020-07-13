@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  window.sendForm = function (url, form, map, fieldsets) {
+  window.initFormSending = function (url, form, map, fieldsets) {
     var successMessage = document.querySelector('#success').content.querySelector('.success');
 
     var hideSuccessMessageByEsc = function (evt) {

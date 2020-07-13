@@ -1,6 +1,6 @@
 'use strict';
 (function () {
-  window.filterFormEventsListener = function (map, offers, pinWrap) {
+  window.addFilterFormEventsListener = function (map, offers, pinWrap) {
     var housingFeatures = document.querySelectorAll('#housing-features input');
 
     var priceSelectFilter = document.querySelector('#housing-price');
