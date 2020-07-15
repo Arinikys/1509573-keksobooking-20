@@ -1,6 +1,7 @@
 'use strict';
 (function () {
   window.addPinClickHandler = function (map, adsMap) {
+    var KEY_NAME = 'Escape';
     var mapPins = document.querySelectorAll('.map__pin');
 
     var addMapPinsClickHandler = function (mapPin, adsMapItem) {
@@ -28,7 +29,7 @@
     };
 
     var closeMapCardByEscape = function (evt) {
-      if (evt.key === 'Escape') {
+      if (evt.key === KEY_NAME) {
         evt.preventDefault();
         window.hideOfferCard();
         document.removeEventListener('keydown', closeMapCardByEscape);

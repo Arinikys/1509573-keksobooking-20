@@ -2,6 +2,7 @@
 
 (function () {
   window.initFormSending = function (url, form, map, fieldsets) {
+    var filterForm = document.querySelector('.map__filters');
     var successMessage = document.querySelector('#success').content.querySelector('.success');
 
     var hideSuccessMessageByEsc = function (evt) {
@@ -22,10 +23,13 @@
 
     var onSuccess = function () {
       window.clearForm(form);
+      filterForm.reset();
+      map.querySelector('.map__pin--main').style = 'left: 570px; top: 375px;';
       window.lockPage(map, form);
       window.lockFieldsets(fieldsets);
       window.setMainPinEventsListener(map, form, fieldsets);
       form.append(successMessage);
+      successMessage.classList.remove('hidden');
       document.addEventListener('keydown', hideSuccessMessageByEsc);
       document.addEventListener('click', hideSuccessMessageByClick);
     };
@@ -49,6 +53,7 @@
     var onError = function () {
       var main = document.querySelector('main');
       main.append(errorMessage);
+      errorMessage.classList.remove('hidden');
       var errorBtn = document.querySelector('.error__button');
       errorBtn.addEventListener('click', function () {
         errorMessage.classList.add('hidden');
@@ -58,7 +63,7 @@
     };
 
     var submitHandler = function (evt) {
-      window.upload(url, new FormData(form), onSuccess, onError);
+      window.upload(url, 'POST', onSuccess, onError, new FormData(form));
       evt.preventDefault();
     };
 

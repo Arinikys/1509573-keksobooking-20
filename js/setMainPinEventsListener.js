@@ -2,6 +2,7 @@
 (function () {
 
   window.setMainPinEventsListener = function (map, form, fieldsets) {
+    var OFFER_DATA_URL = 'https://javascript.pages.academy/keksobooking/data';
     var mainPin = document.querySelector('.map__pin--main');
     var minXLimit = 0;
     var maxXLimit = map.clientWidth - window.MAIN_PIN_WIDTH;
@@ -10,6 +11,15 @@
 
     var unlockPage = function (evt) {
       if (evt.button === 0 || evt.key === 'Enter') {
+        window.upload(OFFER_DATA_URL, 'GET', function (data) {
+          var offers = data;
+          var pinWrap = document.createElement('div');
+
+          pinWrap.append(window.createPins(offers));
+          map.append(pinWrap);
+          window.addPinClickHandler(map, offers);
+          window.addFilterFormEventsListener(map, offers, pinWrap);
+        });
         window.unlockPage(map, form);
         window.unlockFieldsets(fieldsets);
         window.setAddress(window.MAIN_PIN_WIDTH, window.MAIN_PIN_HEIGHT);
