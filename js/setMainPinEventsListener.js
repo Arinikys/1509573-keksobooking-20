@@ -5,7 +5,7 @@
     var OFFER_DATA_URL = 'https://javascript.pages.academy/keksobooking/data';
     var mainPin = document.querySelector('.map__pin--main');
     var minYLimit = 130 - window.MAIN_PIN_HEIGHT;
-    var maxYLimit = 630 -  window.MAIN_PIN_HEIGHT
+    var maxYLimit = 630 - window.MAIN_PIN_HEIGHT;
     var minXLimit = 0 - window.MAIN_PIN_HEIGHT / 2;
     var maxXLimit = map.clientWidth - window.MAIN_PIN_WIDTH / 2;
 

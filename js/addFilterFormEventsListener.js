@@ -65,13 +65,13 @@
       if (!wait500ms) {
         updateOffers();
         wait500ms = true;
-        timer = setTimeout(function() {
+        timer = setTimeout(function () {
           wait500ms = false;
         }, 500);
       } else {
         clearInterval(timer);
 
-        timer = setTimeout(function() {
+        timer = setTimeout(function () {
           updateOffers();
           wait500ms = false;
         }, 500);
