@@ -1,6 +1,10 @@
 'use strict';
 
 (function () {
+  var DEFAULT_ADDRESS = '603 455';
+  var PIN_LEFT_POS_VAL = '570px';
+  var PIN_TOP_POS_VAL = '375px';
+
   window.initFormSending = function (url, form, map, fieldsets) {
     var filterForm = document.querySelector('.map__filters');
     var successMessage = document.querySelector('#success').content.querySelector('.success');
@@ -24,7 +28,12 @@
     var onSuccess = function () {
       window.clearForm(form);
       filterForm.reset();
-      map.querySelector('.map__pin--main').style = 'left: 570px; top: 375px;';
+      var pin = window.document.querySelector('.map__pin');
+      pin.style.left = PIN_LEFT_POS_VAL;
+      pin.style.top = PIN_TOP_POS_VAL;
+      setTimeout(() => {
+        document.getElementsByName('address')[0].value = DEFAULT_ADDRESS;
+      }, 0);
       window.lockPage(map, form);
       window.lockFieldsets(fieldsets);
       window.setMainPinEventsListener(map, form, fieldsets);
