@@ -1,7 +1,12 @@
 'use strict';
 
 (function () {
+  var DEFAULT_ADDRESS = '603 455';
+  var PIN_LEFT_POS_VAL = '570px';
+  var PIN_TOP_POS_VAL = '375px';
+
   window.initFormSending = function (url, form, map, fieldsets) {
+    var filterForm = document.querySelector('.map__filters');
     var successMessage = document.querySelector('#success').content.querySelector('.success');
 
     var hideSuccessMessageByEsc = function (evt) {
@@ -22,10 +27,18 @@
 
     var onSuccess = function () {
       window.clearForm(form);
+      filterForm.reset();
+      var pin = window.document.querySelector('.map__pin');
+      pin.style.left = PIN_LEFT_POS_VAL;
+      pin.style.top = PIN_TOP_POS_VAL;
+      setTimeout(function () {
+        document.getElementsByName('address')[0].value = DEFAULT_ADDRESS;
+      }, 0);
       window.lockPage(map, form);
       window.lockFieldsets(fieldsets);
       window.setMainPinEventsListener(map, form, fieldsets);
       form.append(successMessage);
+      successMessage.classList.remove('hidden');
       document.addEventListener('keydown', hideSuccessMessageByEsc);
       document.addEventListener('click', hideSuccessMessageByClick);
     };
@@ -49,6 +62,7 @@
     var onError = function () {
       var main = document.querySelector('main');
       main.append(errorMessage);
+      errorMessage.classList.remove('hidden');
       var errorBtn = document.querySelector('.error__button');
       errorBtn.addEventListener('click', function () {
         errorMessage.classList.add('hidden');
@@ -58,7 +72,7 @@
     };
 
     var submitHandler = function (evt) {
-      window.upload(url, new FormData(form), onSuccess, onError);
+      window.upload(url, 'POST', onSuccess, onError, new FormData(form));
       evt.preventDefault();
     };
 

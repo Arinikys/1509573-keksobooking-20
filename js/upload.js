@@ -1,13 +1,14 @@
 'use strict';
 
 (function () {
-  window.upload = function (url, data, onSuccess, onError) {
+  window.upload = function (url, method, onSuccess, onError, data) {
+    var SUCCESS_STATUS_CODE = 200;
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
-        onSuccess();
+      if (xhr.status === SUCCESS_STATUS_CODE) {
+        onSuccess(xhr.response);
       } else {
         onError();
       }
@@ -16,7 +17,7 @@
       onError();
     });
 
-    xhr.open('POST', url);
+    xhr.open(method, url);
     xhr.send(data);
   };
 })();

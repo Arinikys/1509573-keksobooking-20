@@ -1,19 +1,10 @@
 'use strict';
 window.MAIN_PIN_WIDTH = 65;
 window.MAIN_PIN_HEIGHT = 80;
+var FORM_URL = 'https://javascript.pages.academy/keksobooking';
 var map = document.querySelector('.map');
 var form = document.querySelector('.ad-form');
 var fieldsets = form.querySelectorAll('fieldset');
-
-var pinWrap = document.createElement('div');
-
-window.request('https://javascript.pages.academy/keksobooking/data', function (data) {
-  var offers = data;
-  pinWrap.append(window.createPins(offers));
-  map.append(pinWrap);
-  window.addPinClickHandler(map, offers);
-  window.addFilterFormEventsListener(map, offers, pinWrap);
-});
 
 window.lockFieldsets(fieldsets);
 window.setAddress(window.MAIN_PIN_WIDTH, window.MAIN_PIN_HEIGHT);
@@ -29,4 +20,4 @@ resetBtn.addEventListener('click', function () {
 window.showPrevImage(document.querySelector('.ad-form-header__input'), document.querySelector('.ad-form-header__preview img'));
 window.showPrevImage(document.querySelector('.ad-form__input'), document.querySelector('.ad-form__photo img'));
 
-window.initFormSending('https://javascript.pages.academy/keksobooking', form, map, fieldsets);
+window.initFormSending(FORM_URL, form, map, fieldsets);

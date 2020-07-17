@@ -13,6 +13,7 @@
         for (var optionIndex = 0; optionIndex < capacityOption.length; optionIndex++) {
           option = capacityOption[optionIndex];
           optionValue = Number(option.value);
+          option.selected = optionValue === 0;
           option.disabled = optionValue !== 0;
         }
         return;
@@ -20,7 +21,9 @@
       for (var j = 0; j < capacityOption.length; j++) {
         option = capacityOption[j];
         optionValue = Number(option.value);
-        option.disabled = optionValue > roomsCount || optionValue === 0;
+        var isOptionDisabled = optionValue > roomsCount || optionValue === 0;
+        option.disabled = isOptionDisabled;
+        option.selected = !isOptionDisabled;
       }
     });
 
@@ -37,7 +40,6 @@
       var minPrice = otterTypePriceCorrelation[offerType.value];
       offerPrice.placeholder = minPrice;
       offerPrice.min = minPrice;
-      offerPrice.value = minPrice;
     });
 
     var timeinSelect = form.querySelector('#timein');
@@ -48,11 +50,7 @@
     var setInOutTime = function (timeValue, optionsList) {
       for (var optionIndex = 0; optionIndex < optionsList.length; optionIndex++) {
         var currentOption = optionsList[optionIndex];
-        if (currentOption.value === timeValue) {
-          currentOption.selected = true;
-        } else {
-          currentOption.selected = false;
-        }
+        currentOption.selected = (currentOption.value === timeValue);
       }
     };
 

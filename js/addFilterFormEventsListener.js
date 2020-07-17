@@ -9,6 +9,9 @@
     var guestsSelectFilter = document.querySelector('#housing-guests');
     var filtredOffers = offers;
 
+    var timer = null;
+    var wait500ms = false;
+
     priceSelectFilter.addEventListener('change', function () {
       filtredOffers = offers;
       addFiltredOffers();
@@ -41,7 +44,7 @@
       featuresFilterChangeHandler(housingFeature);
     }
 
-    var addFiltredOffers = function () {
+    var updateOffers = function () {
       pinWrap.innerHTML = '';
       filtredOffers = window.filterHousingByPrice(priceSelectFilter.value, filtredOffers);
       filtredOffers = window.filterHousingByOption(typeSelectFilter.dataset.option, typeSelectFilter.value, filtredOffers);
@@ -56,6 +59,23 @@
       }
       pinWrap.append(window.createPins(filtredOffers));
       window.addPinClickHandler(map, filtredOffers);
+    };
+
+    var addFiltredOffers = function () {
+      if (!wait500ms) {
+        updateOffers();
+        wait500ms = true;
+        timer = setTimeout(function () {
+          wait500ms = false;
+        }, 500);
+      } else {
+        clearInterval(timer);
+
+        timer = setTimeout(function () {
+          updateOffers();
+          wait500ms = false;
+        }, 500);
+      }
     };
 
     var mapFiltersForm = document.querySelector('.map__filters');
