@@ -15,6 +15,7 @@
           var offers = data;
           var pinWrap = document.createElement('div');
 
+          pinWrap.classList.add('map__pins-wrap');
           pinWrap.append(window.createPins(offers));
           map.append(pinWrap);
           window.addPinClickHandler(map, offers);

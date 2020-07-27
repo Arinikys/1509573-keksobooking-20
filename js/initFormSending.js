@@ -31,6 +31,8 @@
       var pin = window.document.querySelector('.map__pin');
       pin.style.left = PIN_LEFT_POS_VAL;
       pin.style.top = PIN_TOP_POS_VAL;
+      var pinsWrap = window.document.querySelector('.map__pins-wrap');
+      pinsWrap.innerHTML = '';
       setTimeout(function () {
         document.getElementsByName('address')[0].value = DEFAULT_ADDRESS;
       }, 0);
